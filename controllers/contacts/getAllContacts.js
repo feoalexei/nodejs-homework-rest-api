@@ -1,18 +1,16 @@
-const operations = require('../../models/contactsOperations');
+const { Contact } = require('../../models/contact');
 
-const getAllContacts = async (_, res, next) => {
-  try {
-    const contacts = await operations.listContacts();
-    res.json({
-      status: 'success',
-      code: 200,
-      data: {
-        result: contacts,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+const { controllerWrapper } = require('../../utils');
+
+const getAllContacts = async (_, res) => {
+  const contacts = await Contact.find({}, '-createdAt -updatedAt');
+  res.json({
+    status: 'success',
+    code: 200,
+    data: {
+      result: contacts,
+    },
+  });
 };
 
-module.exports = getAllContacts;
+module.exports = controllerWrapper(getAllContacts);
