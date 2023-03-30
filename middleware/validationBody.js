@@ -1,8 +1,8 @@
-const validation = (schema) => {
+const validationBody = (schema) => {
   return (req, _, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
-      error.staus = 400;
+      error.status = 400;
       next(error);
       return;
     }
@@ -10,4 +10,4 @@ const validation = (schema) => {
   };
 };
 
-module.exports = validation;
+module.exports = validationBody;

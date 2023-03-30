@@ -1,18 +1,16 @@
-const operations = require('../../models/contactsOperations');
+const { Contact } = require('../../models/contact');
 
-const addContact = async (req, res, next) => {
-  try {
-    const contact = await operations.addContact(req.body);
-    res.status(201).json({
-      status: 'success',
-      code: 201,
-      data: {
-        result: contact,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+const { controllerWrapper } = require('../../utils');
+
+const addContact = async (req, res) => {
+  const contact = await Contact.create(req.body);
+  res.status(201).json({
+    status: 'success',
+    code: 201,
+    data: {
+      result: contact,
+    },
+  });
 };
 
-module.exports = addContact;
+module.exports = controllerWrapper(addContact);

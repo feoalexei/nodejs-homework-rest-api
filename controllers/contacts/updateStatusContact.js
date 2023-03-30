@@ -2,11 +2,10 @@ const { Contact } = require('../../models/contact');
 
 const { controllerWrapper } = require('../../utils');
 
-const getContactById = async (req, res) => {
+const updateStatusContact = async (req, res) => {
   const { contactId: id } = req.params;
-  const contact = await Contact.findById(id);
-  console.log(contact);
-  if (!contact) {
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+  if (!result) {
     const error = new Error(`No results for contact with id ${id}`);
     error.status = 404;
     throw error;
@@ -15,9 +14,9 @@ const getContactById = async (req, res) => {
     status: 'success',
     code: 200,
     data: {
-      result: contact,
+      result,
     },
   });
 };
 
-module.exports = controllerWrapper(getContactById);
+module.exports = controllerWrapper(updateStatusContact);
