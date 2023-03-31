@@ -1,8 +1,11 @@
 ## Contacts - REST API
 
 Contacts is a Node.js app to deal with contacts. 
-The web server is created using [Express](https://expressjs.com/). 
+
+The web server is created using [Express](https://expressjs.com/).
+
 [Mongo DB](https://www.mongodb.com/) is used as a database platform.
+
 [Joi ](https://www.npmjs.com/package/joi) is used for data validation.
 
 ### Routes:
