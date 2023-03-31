@@ -10,6 +10,11 @@ The web server is created using Express. Mongo DB is used as a database platform
 - @ PUT /api/contacts/:id
 - @ PATCH / api / contacts /: contactId / favorite
 
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 ### Commands
 
 - `npm start` &mdash; start the server in production mode 
