@@ -1,8 +1,8 @@
 ## Contacts - REST API
 
 Contacts is a Node.js app to deal with contacts. 
-The web server is created using Express. 
-Mongo DB is used as a database platform.
+The web server is created using [Express](https://expressjs.com/). 
+[Mongo DB](https://www.mongodb.com/) is used as a database platform.
 [Joi ](https://www.npmjs.com/package/joi) is used for data validation.
 
 ### REST API provides the following routes:
@@ -16,7 +16,11 @@ Mongo DB is used as a database platform.
 |  Route (request) | Operation     |
 | ---------------- | ------------- |
 | @ GET /api/contacts     | get all contacts  |
-| Content Cell     | Content Cell  |
+| @ GET /api/contacts/:id     | get a contact by ID  |
+| @ POST /api/contacts     | create a new contact  |
+| @ DELETE /api/contacts/:id     | delete a contact  |
+| @ PUT /api/contacts/:id    | update a contact  |
+| @ PATCH /api/contacts/:contactId/favorite     | update the "Favorite" status of a contact  |
 
 ### Commands
 
