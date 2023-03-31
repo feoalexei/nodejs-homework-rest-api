@@ -2,11 +2,7 @@
 
 Contacts is a Node.js app to deal with contacts. 
 
-The web server is created using [Express](https://expressjs.com/).
-
-[Mongo DB](https://www.mongodb.com/) is used as a database platform.
-
-[Joi ](https://www.npmjs.com/package/joi) is used for data validation.
+The web server is created using [Express](https://expressjs.com/).  [Mongo DB](https://www.mongodb.com/) is used as a database platform.  [Mongoose](https://mongoosejs.com/) is used to model application data and for MongoDB validation.  [Joi ](https://www.npmjs.com/package/joi) is used for data validation.
 
 ### Routes:
 
