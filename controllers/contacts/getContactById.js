@@ -1,15 +1,13 @@
+const { HttpError } = require('../../utils');
+const { controllerWrapper } = require('../../utils');
 const { Contact } = require('../../models/contact');
 
-const { controllerWrapper } = require('../../utils');
-
 const getContactById = async (req, res) => {
-  const { contactId: id } = req.params;
-  const contact = await Contact.findById(id);
+  const { contactId } = req.params;
+  const contact = await Contact.findById(contactId);
   console.log(contact);
   if (!contact) {
-    const error = new Error(`No results for contact with id ${id}`);
-    error.status = 404;
-    throw error;
+    throw HttpError(404, `No results for contact with id ${contactId}`);
   }
   res.json({
     status: 'success',
