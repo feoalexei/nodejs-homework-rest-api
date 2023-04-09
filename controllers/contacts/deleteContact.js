@@ -1,16 +1,19 @@
+const { HttpError } = require('../../utils');
+const { controllerWrapper } = require('../../utils');
 const { Contact } = require('../../models/contact');
 
-const { controllerWrapper } = require('../../utils');
-
 const deleteContact = async (req, res) => {
-  const { contactId: id } = req.params;
-  const contact = await Contact.findByIdAndRemove(id);
+  const { contactId } = req.params;
+  const { _id } = req.user;
+  const contact = await Contact.findOneAndDelete({
+    _id: contactId,
+    owner: _id,
+  });
   if (!contact) {
-    const error = new Error(
-      `A contact with id ${id} can't be deleted as it was not found`
+    throw HttpError(
+      404,
+      `A contact with id ${contactId} can't be deleted as it was not found`
     );
-    error.status = 404;
-    throw error;
   }
   res.json({
     status: 'success',

@@ -1,14 +1,20 @@
+const { HttpError } = require('../../utils');
+const { controllerWrapper } = require('../../utils');
 const { Contact } = require('../../models/contact');
 
-const { controllerWrapper } = require('../../utils');
-
 const updateStatusContact = async (req, res) => {
-  const { contactId: id } = req.params;
-  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+  const { contactId } = req.params;
+  const { _id } = req.user;
+  const result = await Contact.findOneAndUpdate(
+    {
+      _id: contactId,
+      owner: _id,
+    },
+    req.body,
+    { new: true }
+  );
   if (!result) {
-    const error = new Error(`No results for contact with id ${id}`);
-    error.status = 404;
-    throw error;
+    throw HttpError(404, `No results for contact with id ${contactId}`);
   }
   res.json({
     status: 'success',
