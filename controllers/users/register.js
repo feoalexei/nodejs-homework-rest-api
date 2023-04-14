@@ -1,3 +1,4 @@
+const gravatar = require('gravatar');
 const { HttpError } = require('../../utils');
 const { controllerWrapper } = require('../../utils');
 const { User } = require('../../models');
@@ -9,7 +10,9 @@ const register = async (req, res) => {
     throw HttpError(409, `Email ${email} in use`);
   }
 
-  const newUser = new User({ email, password, subscription });
+  const avatarURL = gravatar.url(email);
+
+  const newUser = new User({ email, password, subscription, avatarURL });
 
   newUser.setPassword(password);
   newUser.save();
