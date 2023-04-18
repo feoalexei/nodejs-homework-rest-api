@@ -1,7 +1,9 @@
 const gravatar = require('gravatar');
-const { HttpError } = require('../../utils');
-const { controllerWrapper } = require('../../utils');
+const { nanoid } = require('nanoid');
+
+const { HttpError, controllerWrapper, sendEmail } = require('../../utils');
 const { User } = require('../../models');
+const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
   const { email, password, subscription } = req.body;
@@ -11,11 +13,26 @@ const register = async (req, res) => {
   }
 
   const avatarURL = gravatar.url(email);
+  const verificationToken = nanoid(6);
 
-  const newUser = new User({ email, password, subscription, avatarURL });
+  const newUser = new User({
+    email,
+    password,
+    subscription,
+    avatarURL,
+    verificationToken,
+  });
 
   newUser.setPassword(password);
   newUser.save();
+
+  const verifyEmail = {
+    to: email,
+    subject: 'Verify email',
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Confirm email</a>`,
+  };
+
+  await sendEmail(verifyEmail);
 
   res.status(201).json({
     status: 'success',
